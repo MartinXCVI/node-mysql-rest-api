@@ -1,6 +1,8 @@
+/* MODULE IMPORTS */
 import { createPool } from 'mysql2/promise'
 import { DB_HOST, DB_NAME, DB_PASS, DB_USER, DB_PORT } from './config.js'
 
+// Database connection module
 export const connectDB = createPool({
   host: DB_HOST,
   user: DB_USER,

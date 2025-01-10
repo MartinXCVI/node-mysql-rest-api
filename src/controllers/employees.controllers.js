@@ -1,6 +1,11 @@
-import { response } from 'express'
+/* MODULE IMPORTS */
 import { connectDB } from '../config/dbConnection.js'
 
+/* CONTROLLERS */
+
+// @desc Get all employees from DB
+// @route /employees
+// @method GET
 export const getEmployees = async (req, res)=> {
   try {
     const [rows] = await connectDB.query('SELECT * FROM employees')
@@ -9,9 +14,11 @@ export const getEmployees = async (req, res)=> {
     console.error(error)
     return res.status(500).json({ message: 'Something went wrong' })
   }
-  
 }
 
+// @desc Get employee by ID from DB
+// @route /employees/:id
+// @method GET
 export const getEmployeeById = async (req, res)=> {
   try {
     const [rows] = await connectDB.query('SELECT * FROM employees WHERE id = ?', [req.params.id])
@@ -26,6 +33,9 @@ export const getEmployeeById = async (req, res)=> {
   }
 }
 
+// @desc Create a new employee in DB
+// @route /employees
+// @method POST
 export const createEmployee = async (req, res)=> {
   const { name, salary } = req.body
 
@@ -42,6 +52,9 @@ export const createEmployee = async (req, res)=> {
   }
 }
 
+// @desc Update/Modify an employee in DB
+// @route /employees/:id
+// @method PATCH
 export const updateEmployee = async (req, res)=> {
   const { id } = req.params
   const { name, salary } = req.body
@@ -60,8 +73,10 @@ export const updateEmployee = async (req, res)=> {
   }
 }
 
+// @desc Delete an employee from DB
+// @route /employees/:id
+// @method DELETE
 export const deleteEmployee = async (req, res)=> {
-
   try {
     const [result] = await connectDB.query('DELETE FROM employees WHERE id = ?', [req.params.id])
 
@@ -73,5 +88,4 @@ export const deleteEmployee = async (req, res)=> {
     console.error(error)
     return res.status(500).json({ message: 'Something went wrong' })
   }
-  
 }

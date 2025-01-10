@@ -1,3 +1,4 @@
+/* MODULE IMPORTS */
 import { connectDB } from '../config/dbConnection.js'
 
 export const ping = async (req, res)=> {
